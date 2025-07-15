@@ -10,7 +10,7 @@ print("Available Ports:", ports)
 if not ports:
     raise Exception("No serial ports found.")
 
-port = ports[4]
+port = ports[0]
 # ['/dev/cu.wlan-debug', '/dev/cu.debug-console', '/dev/cu.HC-05', '/dev/cu.Bluetooth-Incoming-Port', '/dev/cu.usbserial-A5069RR4']
 # Scan for Modbus Devices (Addresses 1 to 3)
 modbus_devices = scan_modbus(port, baudrate=38400, parity=serial.PARITY_NONE, stopbits=serial.STOPBITS_ONE,

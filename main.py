@@ -1,10 +1,16 @@
+from gpiozero import Servo
 from time import sleep
+from gpiozero.pins.pigpio import PiGPIOFactory
 
-from Arm import Arm
+factory = PiGPIOFactory()
+servo = Servo(4,pin_factory=factory)
 
-arm = Arm()
 
-while True:
-    arm.open()
-    sleep(1000)
-    arm.close()
+try:
+    while True:
+        servo.min()
+        sleep(1000)
+        servo.mid()
+        sleep(1000)
+except KeyboardInterrupt:
+    print("ex")
