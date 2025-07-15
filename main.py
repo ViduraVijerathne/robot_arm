@@ -1,24 +1,27 @@
-from gpiozero import  AngularServo
+from gpiozero import Servo
 from time import sleep
-from gpiozero.pins.pigpio import PiGPIOFactory
 
-# Use PiGPIOFactory to support GPIO2 properly
-factory = PiGPIOFactory()
-servo = AngularServo(18, min_pulse_width=0.0006,max_pulse_width=0.0023)  # GPIO2 (BCM)
+# Use GPIO17 (BCM pin 17)
+servo = Servo(17, min_pulse_width=0.5/1000, max_pulse_width=2.5/1000)
 
-print("Sweeping servo...")
+# Helper function to move to angle
+def move_servo_to(angle):
+    # Normalize angle (0 to 180) to value (-1 to 1)
+    if angle < 0 or angle > 180:
+        raise ValueError("Angle must be between 0 and 180")
+
+    normalized = (angle - 90) / 90  # -1 to +1
+    servo.value = normalized
+    print(f"Moved to {angle} degrees")
+    sleep(1)  # Wait for the servo to reach position
+
+# Move to positions
 try:
-    while True:
-        servo.min()
-        print("Position: MIN")
-        sleep(1)
-
-        servo.mid()
-        print("Position: MID")
-        sleep(1)
-
-        servo.max()
-        print("Position: MAX")
-        sleep(1)
+    move_servo_to(0)
+    move_servo_to(90)
+    move_servo_to(180)
+    move_servo_to(45)
+    move_servo_to(135)
+    move_servo_to(90)
 except KeyboardInterrupt:
-    print("Exiting...")
+    print("Stopped by user")
