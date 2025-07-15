@@ -3,12 +3,9 @@ from time import sleep
 from gpiozero.pins.pigpio import PiGPIOFactory
 
 class Arm:
-    servo = None
-    factory = None
+    factory = PiGPIOFactory()
+    servo = Servo(4, pin_factory=factory)
 
-    def __init__(self):
-        factory = PiGPIOFactory()
-        servo = Servo(4, pin_factory=factory)
 
     def close(self):
         try:
