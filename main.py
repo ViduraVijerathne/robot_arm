@@ -1,10 +1,10 @@
-from gpiozero import Servo
+from gpiozero import  AngularServo
 from time import sleep
 from gpiozero.pins.pigpio import PiGPIOFactory
 
 # Use PiGPIOFactory to support GPIO2 properly
 factory = PiGPIOFactory()
-servo = Servo(2, pin_factory=factory)  # GPIO2 (BCM)
+servo = AngularServo(18, min_pulse_width=0.0006,max_pulse_width=0.0023)  # GPIO2 (BCM)
 
 print("Sweeping servo...")
 try:
